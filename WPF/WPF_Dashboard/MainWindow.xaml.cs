@@ -1,10 +1,13 @@
-﻿
-using System;
+﻿using System;
+using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using WPF_Dashboard.Serial_manager;
 
 namespace WPF_Dashboard
 {
@@ -12,6 +15,9 @@ namespace WPF_Dashboard
     {
         private const double MaxSpeed = 220;
         private double _speed;
+        SerialManager sm = new SerialManager();  // Declare a SerialManager Class File
+        private CancellationTokenSource serialCts;
+
 
         public MainWindow()
         {
@@ -130,9 +136,13 @@ namespace WPF_Dashboard
             // UI elements must be updated on the WPF UI thread.
             Dispatcher.Invoke(() =>
             {
-                VehicleIdText.Text = $"VEHICLE {data.Vehicle ?? "A"}";
-                VehicleRoleText.Text =
-                    (data.Role ?? "UNKNOWN").ToUpperInvariant();
+                mainvehicle.Text = $"VEHICLE {data.Vehicle}";
+                mainvehiclestatus.Text =
+                    "  /  " + (data.Role ?? "UNKNOWN").ToUpperInvariant();
+
+                VehicleIdText.Text =data.Vehicle == "A" ? "VEHICLE B" : "VEHICLE A";
+                VehicleRoleText.Text = data.Role.ToUpperInvariant() == "FRONT VEHICLE" ? "REAR VEHICLE" : "FRONT VEHICLE";
+                proxmitystatus.Text = data.Role.ToUpperInvariant() == "FRONT VEHICLE" ? "REVERSE PROXIMITY" : "FORWARD PROXIMITY";
 
                 LocalSpeedText.Text =
                     $"{data.Local.SpeedKmh:0.0} km/h";
@@ -155,8 +165,8 @@ namespace WPF_Dashboard
                 SetSpeed(data.Local.SpeedKmh);
                 UpdateClusterIndicators(data);
 
-                ConnectionText.Text = "JSON CONNECTED";
-                ConnectionText.Foreground = Brushes.LightGreen;
+                //ConnectionText.Text = "JSON CONNECTED";
+                //ConnectionText.Foreground = Brushes.LightGreen;
             });
         }
 
@@ -202,8 +212,7 @@ namespace WPF_Dashboard
             SteeringTelltale.Opacity =
                 data.Local.SteerAdvisory != 0 ? 1.0 : 0.35;
 
-            SteerText.Text =
-                data.Local.SteerAdvisory.ToString();
+            SteerText.Text = data.Local.SteerAdvisory == 0 ? "Straight" : data.Local.SteerAdvisory == 1 ? "Left" : "Right";
 
             //PeerBrakeText.Text = data.Peer.BrakeActive
             //    ? "PEER BRAKING"
@@ -215,6 +224,115 @@ namespace WPF_Dashboard
             SpeedDifferenceText.Text =
                 $"{data.Local.SpeedKmh - data.Peer.SpeedKmh:+0.0;-0.0;0.0} km/h";
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                sm.setSerialPort("COM6", 115200, "None", 8, 2);// Connec to Serial Port 
+                if (sm.Serialstatus())
+                {
+                    Enablethread();
+                    ConnectionText.Text = "CONNECTED";
+                    ConnectionText.Foreground = Brushes.LightGreen;
+                }
+                else
+                {
+                    ConnectionText.Text = "DISCONNECTED";
+                    ConnectionText.Foreground = Brushes.OrangeRed;
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+
+        private async void Enablethread()
+        {
+
+            serialCts = new CancellationTokenSource();
+
+            await Task.Run(() => SerialReadLoop(serialCts.Token));
+        }
+
+        private void SerialReadLoop(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                try
+                {
+                    string json = sm.Read();
+
+                    if (!string.IsNullOrWhiteSpace(json))
+                    {
+                        Dispatcher.BeginInvoke(new Action(() =>
+                        {
+                            Read_serial(json);
+                        }));
+                    }
+                }
+                catch (TimeoutException)
+                {
+                    // No complete line yet; keep waiting
+                }
+                catch (InvalidOperationException)
+                {
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        Console.WriteLine("UART error: " + ex.Message);
+                    }));
+                    break;
+                }
+            }
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            serialCts?.Cancel();
+
+            //if (sm != null)
+            //{
+            //    if (sm.IsOpen)
+            //        sm.Close();
+
+            //    sm.Dispose();
+            //}
+
+            serialCts?.Dispose();
+
+            base.OnClosed(e);
+        }
+
+        private void OnSerialDataReceived(string json)
+        {
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                Read_serial(json);
+            }));
+        }
+
+        public void Read_serial(string msg)
+        {
+            VehicleMessage data = new VehicleMessage();
+            try
+            {
+                data =
+          JsonSerializer.Deserialize<VehicleMessage>(msg);
+                if (data != null)
+                    UpdateFromJson(data);
+            }
+            catch
+            { }
+        }
+
+
     }
 
     public class VehicleMessage

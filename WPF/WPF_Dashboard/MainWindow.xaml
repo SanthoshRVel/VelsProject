@@ -7,7 +7,7 @@
         WindowStartupLocation="CenterScreen"
         Background="#050B14"
         Foreground="White"
-        FontFamily="Segoe UI">
+        FontFamily="Segoe UI" Loaded="Window_Loaded">
 
     <Window.Resources>
         <SolidColorBrush x:Key="Muted" Color="#8197B1"/>
@@ -44,9 +44,9 @@
                         VerticalAlignment="Center">
                 <Ellipse Width="9" Height="9"
                          Fill="#00D9FF" Margin="0,0,10,0"/>
-                <TextBlock Text="VEHICLE A"
+                <TextBlock x:Name="mainvehicle" Text="VEHICLE A"
                            FontSize="15" FontWeight="Bold"/>
-                <TextBlock Text="  /  FRONT VEHICLE"
+                <TextBlock x:Name="mainvehiclestatus" Text="  /  FRONT VEHICLE"
                            FontSize="12" Foreground="#8197B1"
                            VerticalAlignment="Center"/>
             </StackPanel>
@@ -54,12 +54,12 @@
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center">
-                <TextBlock Text="SAFETY CLUSTER"
+                <TextBlock Text="Status"
                            Foreground="#8197B1"
                            FontSize="11"
                            Margin="0,0,18,0"/>
                 <TextBlock x:Name="ConnectionText"
-                           Text="JSON CONNECTED"
+                           Text="CONNECTED"
                            Foreground="#4DE0A5"
                            FontSize="11"
                            FontWeight="Bold"/>
@@ -168,7 +168,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="FORWARD PROXIMITY"
+                    <TextBlock x:Name="proxmitystatus" Text="FORWARD PROXIMITY"
                                HorizontalAlignment="Center"
                                Style="{StaticResource SmallLabel}"/>
 
@@ -442,7 +442,8 @@
                         Style="{StaticResource TelltaleBorder}">
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">
-                        <TextBlock Text="↔"
+                        <TextBlock x:Name="streeingdir"
+                                   Text="↔"
                                    FontSize="26"
                                    Foreground="#FFB547"
                                    VerticalAlignment="Center"
@@ -484,11 +485,11 @@
 
         <!-- Footer -->
         <Grid Grid.Row="3" Margin="4,10,4,0">
-            <TextBlock Text="ADAS PROXIMITY MONITOR"
+            <TextBlock Text="V2V Communication using DSRC"
                        Foreground="#607A97"
                        FontSize="10"
                        VerticalAlignment="Center"/>
-            <TextBlock Text="SIMULATION / JSON INPUT"
+            <TextBlock Text="VELS University"
                        Foreground="#607A97"
                        FontSize="10"
                        HorizontalAlignment="Right"
