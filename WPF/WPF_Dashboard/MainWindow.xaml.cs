@@ -17,6 +17,22 @@ namespace WPF_Dashboard
         private double _speed;
         SerialManager sm = new SerialManager();  // Declare a SerialManager Class File
         private CancellationTokenSource serialCts;
+        Brush safeBody = new SolidColorBrush(Color.FromRgb(16, 44, 66));
+        Brush safeAccent = new SolidColorBrush(Color.FromRgb(0, 217, 255));
+        Brush safeWindow = new SolidColorBrush(Color.FromRgb(27, 102, 129));
+        Brush safeWindowStroke = new SolidColorBrush(Color.FromRgb(101, 232, 255));
+
+        Brush warningBody = new SolidColorBrush(Color.FromRgb(65, 42, 15));
+        Brush warningAccent = new SolidColorBrush(Color.FromRgb(255, 159, 28));
+        Brush warningWindow = new SolidColorBrush(Color.FromRgb(125, 77, 27));
+
+        Brush dangerBody = new SolidColorBrush(Color.FromRgb(65, 25, 35));
+        Brush dangerAccent = new SolidColorBrush(Color.FromRgb(255, 64, 87));
+        Brush dangerWindow = new SolidColorBrush(Color.FromRgb(123, 45, 55));
+
+        Brush body;
+        Brush accent;
+        Brush window;
 
 
         public MainWindow()
@@ -136,13 +152,13 @@ namespace WPF_Dashboard
             // UI elements must be updated on the WPF UI thread.
             Dispatcher.Invoke(() =>
             {
-                mainvehicle.Text = $"VEHICLE {data.Vehicle}";
-                mainvehiclestatus.Text =
-                    "  /  " + (data.Role ?? "UNKNOWN").ToUpperInvariant();
+                VehicleIdText.Text = $"VEHICLE {data.Vehicle}";
+                VehicleRoleText.Text =
+                    (data.Role ?? "UNKNOWN").ToUpperInvariant();
 
-                VehicleIdText.Text =data.Vehicle == "A" ? "VEHICLE B" : "VEHICLE A";
-                VehicleRoleText.Text = data.Role.ToUpperInvariant() == "FRONT VEHICLE" ? "REAR VEHICLE" : "FRONT VEHICLE";
-                proxmitystatus.Text = data.Role.ToUpperInvariant() == "FRONT VEHICLE" ? "REVERSE PROXIMITY" : "FORWARD PROXIMITY";
+                mainvehicle.Text =data.Vehicle == "A" ? "VEHICLE B" : "VEHICLE A";
+                mainvehiclestatus.Text = data.Role.ToUpperInvariant() == "FRONT VEHICLE" ? " / REAR VEHICLE" : " / FRONT VEHICLE";
+                proxmitystatus.Text = data.Role.ToUpperInvariant() != "FRONT VEHICLE" ? "FORWARD PROXIMITY" : "REVERSE PROXIMITY";
 
                 LocalSpeedText.Text =
                     $"{data.Local.SpeedKmh:0.0} km/h";
@@ -164,10 +180,211 @@ namespace WPF_Dashboard
 
                 SetSpeed(data.Local.SpeedKmh);
                 UpdateClusterIndicators(data);
+                UpdateVehicleColors(data);
 
                 //ConnectionText.Text = "JSON CONNECTED";
                 //ConnectionText.Foreground = Brushes.LightGreen;
             });
+        }
+
+
+        //private void UpdateVehicleColors(VehicleMessage data)
+        //{
+        //    // Peer vehicle
+        //    bool peerWarning =
+        //        data.Peer.BrakeActive ||
+        //        data.Peer.ObstacleDetected;
+
+        //    Brush peerBody = new SolidColorBrush(
+        //        peerWarning
+        //            ? Color.FromRgb(75, 25, 35)
+        //            : Color.FromRgb(53, 37, 42));
+
+        //    Brush peerAccent = new SolidColorBrush(
+        //        peerWarning
+        //            ? Color.FromRgb(255, 64, 87)
+        //            : Color.FromRgb(255, 83, 103));
+
+        //    PeerVehicleVisual.Background = peerBody;
+        //    PeerVehicleVisual.BorderBrush = peerAccent;
+        //    PeerWindow.Fill = new SolidColorBrush(
+        //        peerWarning
+        //            ? Color.FromRgb(123, 45, 55)
+        //            : Color.FromRgb(123, 65, 74));
+        //    PeerWindow.Stroke = new SolidColorBrush(
+        //        peerWarning
+        //            ? Color.FromRgb(255, 135, 147)
+        //            : Color.FromRgb(255, 135, 147));
+        //    PeerFrontLight.Fill = peerAccent;
+        //    PeerRearLight.Fill = peerAccent;
+
+        //    // Local vehicle
+        //    bool localWarning =
+        //        data.Local.BrakeActive ||
+        //        data.Local.ObstacleDetected;
+
+        //    Brush localBody = new SolidColorBrush(
+        //        localWarning
+        //            ? Color.FromRgb(65, 42, 15)
+        //            : Color.FromRgb(16, 44, 66));
+
+        //    Brush localAccent = new SolidColorBrush(
+        //        localWarning
+        //            ? Color.FromRgb(255, 159, 28)
+        //            : Color.FromRgb(0, 217, 255));
+
+        //    LocalVehicleVisual.Background = localBody;
+        //    LocalVehicleVisual.BorderBrush = localAccent;
+        //    LocalWindow.Fill = new SolidColorBrush(
+        //        localWarning
+        //            ? Color.FromRgb(125, 77, 27)
+        //            : Color.FromRgb(27, 102, 129));
+        //    LocalWindow.Stroke = localAccent;
+        //    LocalFrontLight.Fill = localAccent;
+        //    LocalRearLight.Fill = localAccent;
+        //}
+
+        private void UpdateVehicleColors(VehicleMessage data)
+        {
+            bool isFrontVehicle = string.Equals(
+                data.Role,
+                "FRONT VEHICLE",
+                StringComparison.OrdinalIgnoreCase);
+
+            if (!isFrontVehicle)
+            {
+                // Our vehicle is the front vehicle: change PeerVehicleVisual
+                UpdatePeerVehicleColor(data);
+            }
+            else
+            {
+                // Our vehicle is not the front vehicle: change LocalVehicleVisual
+                UpdateLocalVehicleColor(data);
+            }
+        }
+
+        private void UpdatePeerVehicleColor(VehicleMessage data)
+        {
+            //bool warning = data.Local.BrakeActive ||
+            //               data.Local.ObstacleDetected;
+
+            //PeerVehicleVisual.Background = new SolidColorBrush(
+            //    warning ? Color.FromRgb(75, 25, 35)
+            //            : Color.FromRgb(53, 37, 42));
+
+            //Brush accent = new SolidColorBrush(
+            //    warning ? Color.FromRgb(255, 64, 87)
+            //            : Color.FromRgb(255, 83, 103));
+
+            //PeerVehicleVisual.BorderBrush = accent;
+            //PeerWindow.Fill = new SolidColorBrush(
+            //    warning ? Color.FromRgb(123, 45, 55)
+            //            : Color.FromRgb(123, 65, 74));
+            //PeerFrontLight.Fill = accent;
+            //PeerRearLight.Fill = accent;
+
+            
+
+            switch (data.Status.ToUpperInvariant())
+            {
+                case "WARNING":
+                    body = warningBody;
+                    accent = warningAccent;
+                    window = warningWindow;
+                    break;
+                case "DANGER":
+                    body = dangerBody;
+                    accent = dangerAccent;
+                    window = dangerWindow;
+                    break;
+                case "SAFE":
+                default:
+                    body = safeBody;
+                    accent = safeAccent;
+                    window = safeWindow;
+                    break;
+            }
+            PeerVehicleVisual.Background = body;
+            PeerVehicleVisual.BorderBrush = accent;
+            PeerWindow.Fill = window;
+            PeerWindow.Stroke = data.Status.ToUpperInvariant() == "SAFE"
+                ? safeWindowStroke
+                : accent;
+            PeerFrontLight.Fill = accent;
+            PeerRearLight.Fill = accent;
+
+
+            // Local vehicle: always safe cyan
+            //Brush safeBody = new SolidColorBrush(Color.FromRgb(16, 44, 66));
+            //Brush safeAccent = new SolidColorBrush(Color.FromRgb(0, 217, 255));
+
+            LocalVehicleVisual.Background = safeBody;
+            LocalVehicleVisual.BorderBrush = safeAccent;
+            LocalWindow.Fill = new SolidColorBrush(Color.FromRgb(27, 102, 129));
+            LocalWindow.Stroke = new SolidColorBrush(Color.FromRgb(101, 232, 255));
+            LocalFrontLight.Fill = safeAccent;
+            LocalRearLight.Fill = safeAccent;
+        }
+
+        private void UpdateLocalVehicleColor(VehicleMessage data)
+        {
+            //bool warning = data.Local.BrakeActive ||
+            //               data.Local.ObstacleDetected;
+
+            //LocalVehicleVisual.Background = new SolidColorBrush(
+            //    warning ? Color.FromRgb(65, 42, 15)
+            //            : Color.FromRgb(16, 44, 66));
+
+            //Brush accent = new SolidColorBrush(
+            //    warning ? Color.FromRgb(255, 159, 28)
+            //            : Color.FromRgb(0, 217, 255));
+
+            //LocalVehicleVisual.BorderBrush = accent;
+            //LocalWindow.Fill = new SolidColorBrush(
+            //    warning ? Color.FromRgb(125, 77, 27)
+            //            : Color.FromRgb(27, 102, 129));
+            //LocalWindow.Stroke = accent;
+            //LocalFrontLight.Fill = accent;
+            //LocalRearLight.Fill = accent;
+
+            //// Local vehicle: always safe cyan
+            //Brush safeBody = new SolidColorBrush(Color.FromRgb(16, 44, 66));
+            //Brush safeAccent = new SolidColorBrush(Color.FromRgb(0, 217, 255));
+
+            switch (data.Status.ToUpperInvariant())
+            {
+                case "WARNING":
+                    body = warningBody;
+                    accent = warningAccent;
+                    window = warningWindow;
+                    break;
+                case "DANGER":
+                    body = dangerBody;
+                    accent = dangerAccent;
+                    window = dangerWindow;
+                    break;
+                case "SAFE":
+                default:
+                    body = safeBody;
+                    accent = safeAccent;
+                    window = safeWindow;
+                    break;
+            }
+            LocalVehicleVisual.Background = body;
+            LocalVehicleVisual.BorderBrush = accent;
+            LocalWindow.Fill = window;
+            LocalWindow.Stroke = data.Status.ToUpperInvariant() == "SAFE"
+                ? safeWindowStroke
+                : accent;
+            LocalFrontLight.Fill = accent;
+            LocalRearLight.Fill = accent;
+
+            PeerVehicleVisual.Background = safeBody;
+            PeerVehicleVisual.BorderBrush = safeAccent;
+            PeerWindow.Fill = new SolidColorBrush(Color.FromRgb(27, 102, 129));
+            PeerWindow.Stroke = new SolidColorBrush(Color.FromRgb(101, 232, 255));
+            PeerFrontLight.Fill = safeAccent;
+            PeerRearLight.Fill = safeAccent;
         }
 
         private void UpdateClusterIndicators(VehicleMessage data)

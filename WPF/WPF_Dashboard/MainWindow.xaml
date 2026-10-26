@@ -205,60 +205,71 @@
 
                         <!-- Peer vehicle -->
                         <Border x:Name="PeerVehicleVisual"
-                                Width="76" Height="104"
-                                Background="#35252A"
-                                BorderBrush="#FF5367"
-                                BorderThickness="2"
-                                CornerRadius="19"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Top"
-                                Margin="0,35,0,0">
+        Width="76" Height="104"
+        Background="#35252A"
+        BorderBrush="#FF5367"
+        BorderThickness="2"
+        CornerRadius="19"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Top"
+        Margin="0,35,0,0">
                             <Grid>
-                                <Rectangle Width="43" Height="48"
-                                           RadiusX="10" RadiusY="10"
-                                           Fill="#7B414A"
-                                           Stroke="#FF8793"
-                                           StrokeThickness="1"
-                                           VerticalAlignment="Center"/>
-                                <Rectangle Width="52" Height="14"
-                                           RadiusX="4" RadiusY="4"
-                                           Fill="#FF5367"
-                                           VerticalAlignment="Top"
-                                           Margin="0,7,0,0"/>
-                                <Rectangle Width="52" Height="12"
-                                           RadiusX="4" RadiusY="4"
-                                           Fill="#FF5367"
-                                           VerticalAlignment="Bottom"
-                                           Margin="0,0,0,7"/>
+                                <Rectangle x:Name="PeerWindow"
+                   Width="43" Height="48"
+                   RadiusX="10" RadiusY="10"
+                   Fill="#7B414A"
+                   Stroke="#FF8793"
+                   StrokeThickness="1"
+                   VerticalAlignment="Center"/>
+
+                                <Rectangle x:Name="PeerFrontLight"
+                   Width="52" Height="14"
+                   RadiusX="4" RadiusY="4"
+                   Fill="#FF5367"
+                   VerticalAlignment="Top"
+                   Margin="0,7,0,0"/>
+
+                                <Rectangle x:Name="PeerRearLight"
+                   Width="52" Height="12"
+                   RadiusX="4" RadiusY="4"
+                   Fill="#FF5367"
+                   VerticalAlignment="Bottom"
+                   Margin="0,0,0,7"/>
                             </Grid>
                         </Border>
 
                         <!-- Local vehicle -->
-                        <Border Width="76" Height="104"
-                                Background="#102C42"
-                                BorderBrush="#00D9FF"
-                                BorderThickness="2"
-                                CornerRadius="19"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Bottom"
-                                Margin="0,0,0,35">
+                        <Border x:Name="LocalVehicleVisual"
+        Width="76" Height="104"
+        Background="#102C42"
+        BorderBrush="#00D9FF"
+        BorderThickness="2"
+        CornerRadius="19"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Bottom"
+        Margin="0,0,0,35">
                             <Grid>
-                                <Rectangle Width="43" Height="48"
-                                           RadiusX="10" RadiusY="10"
-                                           Fill="#1B6681"
-                                           Stroke="#65E8FF"
-                                           StrokeThickness="1"
-                                           VerticalAlignment="Center"/>
-                                <Rectangle Width="52" Height="14"
-                                           RadiusX="4" RadiusY="4"
-                                           Fill="#00D9FF"
-                                           VerticalAlignment="Top"
-                                           Margin="0,7,0,0"/>
-                                <Rectangle Width="52" Height="12"
-                                           RadiusX="4" RadiusY="4"
-                                           Fill="#00D9FF"
-                                           VerticalAlignment="Bottom"
-                                           Margin="0,0,0,7"/>
+                                <Rectangle x:Name="LocalWindow"
+                   Width="43" Height="48"
+                   RadiusX="10" RadiusY="10"
+                   Fill="#1B6681"
+                   Stroke="#65E8FF"
+                   StrokeThickness="1"
+                   VerticalAlignment="Center"/>
+
+                                <Rectangle x:Name="LocalFrontLight"
+                   Width="52" Height="14"
+                   RadiusX="4" RadiusY="4"
+                   Fill="#00D9FF"
+                   VerticalAlignment="Top"
+                   Margin="0,7,0,0"/>
+
+                                <Rectangle x:Name="LocalRearLight"
+                   Width="52" Height="12"
+                   RadiusX="4" RadiusY="4"
+                   Fill="#00D9FF"
+                   VerticalAlignment="Bottom"
+                   Margin="0,0,0,7"/>
                             </Grid>
                         </Border>
                     </Grid>
@@ -484,8 +495,11 @@
         </Border>
 
         <!-- Footer -->
-        <Grid Grid.Row="3" Margin="4,10,4,0">
-            <TextBlock Text="V2V Communication using DSRC"
+        <Grid Grid.Row="3" Margin="4,4,4,0">
+            <TextBlock Text="DSRC Inspired V2V Communication System &#x0a;
+                       Rohitkumar RG    - 23626619 &#x0a;
+                       Santhosh Rajavel - 23626622
+"
                        Foreground="#607A97"
                        FontSize="10"
                        VerticalAlignment="Center"/>
