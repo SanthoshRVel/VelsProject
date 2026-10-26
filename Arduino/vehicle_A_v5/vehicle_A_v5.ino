@@ -69,6 +69,20 @@ uint8_t PEER_MAC[] = {0xD4, 0xE9, 0xF4, 0x78, 0x53, 0x5C};
 #define PRINT_INTERVAL_MS 1000    // 1 Hz dashboard
 #define PEER_TIMEOUT_MS  2000     // peer considered stale after 2 s
 
+/* Json Structure*/
+// Vehicle data structure
+struct VehicleData_json {
+  float speedKmh;
+  float distFront_m;
+  bool brakeActive;
+  bool obstacleDetected;
+  float ttc_s;
+  int steerAdvisory;
+};
+
+VehicleData_json localjson;
+VehicleData_json peerjson;
+
 // ── SHARED PACKET ──────────────────────────────────────────
 typedef struct __attribute__((packed)) VehicleData {
   uint8_t  id;
@@ -255,6 +269,46 @@ void printDashboard(float ttc, bool localDanger, bool localWarning,
   Serial.println(F("========================================"));
 }
 
+void printJsonDashboard(float ttc, bool localDanger,
+                    bool localWarning, bool iAmFront) {
+
+  StaticJsonDocument<512> doc;
+
+  doc["vehicle"] = "A";
+  doc["role"] = iAmFront ? "FRONT VEHICLE" : "REAR VEHICLE";
+
+  JsonObject localData = doc.createNestedObject("localjson");
+  localData["speed_kmh"] = local.speedKmh;
+  localData["distance_m"] = local.distFront_m;
+  localData["brake_active"] = local.brakeActive;
+  localData["obstacle_detected"] = local.obstacleDetected;
+  localData["ttc_s"] = ttc;
+  localData["steer_advisory"] = local.steerAdvisory;
+
+  if (peerFresh) {
+    JsonObject peerData = doc.createNestedObject("peerjson");
+    peerData["speed_kmh"] = peer.speedKmh;
+    peerData["distance_m"] = peer.distFront_m;
+    peerData["brake_active"] = peer.brakeActive;
+    peerData["obstacle_detected"] = peer.obstacleDetected;
+    peerData["ttc_s"] = peer.ttc_s;
+  } else {
+    doc["peer"] = nullptr;
+  }
+
+  if (localDanger) {
+    doc["status"] = "DANGER";
+  } else if (localWarning) {
+    doc["status"] = "WARNING";
+  } else {
+    doc["status"] = "SAFE";
+  }
+
+  // Arduino Uno UART: Serial (USB)
+  serializeJson(doc, Serial);
+  Serial.println();
+}
+
 // ── ESP-NOW CALLBACKS ──────────────────────────────────────
 void onSentImpl(const uint8_t *, esp_now_send_status_t) {}
 
@@ -370,7 +424,8 @@ void loop() {
   }
 
   if (now - lastPrint >= PRINT_INTERVAL_MS) {
-    printDashboard(ttc, localDanger, localWarning, iAmFront);
+    // printDashboard(ttc, localDanger, localWarning, iAmFront);
+    printJsonDashboard(ttc, localDanger, localWarning, iAmFront);
     lastPrint = now;
   }
 
