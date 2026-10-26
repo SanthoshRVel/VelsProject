@@ -583,6 +583,10 @@ namespace WPF_Dashboard
                         ConnectionText.Text = "DISCONNECTED";
                         ConnectionText.Foreground = Brushes.OrangeRed;
                     }
+                    else if (combo1.SelectedIndex == -1)
+                    {
+                        MessageBox.Show("Kindly select any one com port", "Warning",MessageBoxButton.OK,MessageBoxImage.Error);
+                    }
                 }
                 catch
                 {

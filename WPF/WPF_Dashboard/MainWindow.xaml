@@ -1,13 +1,13 @@
 ﻿<Window x:Class="WPF_Dashboard.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Vehicle Safety Cluster"
+        Title="DSRC Inspired V2V Communication System"
         Width="1280" Height="800"
         MinWidth="1000" MinHeight="680"
         WindowStartupLocation="CenterScreen"
         Background="#050B14"
-        Foreground="White"
-        FontFamily="Segoe UI" Loaded="Window_Loaded">
+        Foreground="white"
+        FontFamily="Segoe UI" Loaded="Window_Loaded" Icon="appimage.jpg">
 
     <Window.Resources>
         <SolidColorBrush x:Key="Muted" Color="#8197B1"/>
