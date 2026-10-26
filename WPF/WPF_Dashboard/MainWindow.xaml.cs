@@ -33,6 +33,7 @@ namespace WPF_Dashboard
         Brush body;
         Brush accent;
         Brush window;
+        bool isconnected = false;
 
 
         public MainWindow()
@@ -444,26 +445,26 @@ namespace WPF_Dashboard
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            try
-            {
+            //try
+            //{
 
-                sm.setSerialPort("COM6", 115200, "None", 8, 2);// Connec to Serial Port 
-                if (sm.Serialstatus())
-                {
-                    Enablethread();
-                    ConnectionText.Text = "CONNECTED";
-                    ConnectionText.Foreground = Brushes.LightGreen;
-                }
-                else
-                {
-                    ConnectionText.Text = "DISCONNECTED";
-                    ConnectionText.Foreground = Brushes.OrangeRed;
-                }
-            }
-            catch
-            {
+            //    sm.setSerialPort("COM6", 115200, "None", 8, 2);// Connec to Serial Port 
+            //    if (sm.Serialstatus())
+            //    {
+            //        Enablethread();
+            //        ConnectionText.Text = "CONNECTED";
+            //        ConnectionText.Foreground = Brushes.LightGreen;
+            //    }
+            //    else
+            //    {
+            //        ConnectionText.Text = "DISCONNECTED";
+            //        ConnectionText.Foreground = Brushes.OrangeRed;
+            //    }
+            //}
+            //catch
+            //{
 
-            }
+            //}
         }
 
 
@@ -549,7 +550,66 @@ namespace WPF_Dashboard
             { }
         }
 
+        private void ConnectButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                try
+                {
+                    if (combo1.SelectedIndex != -1 && !isconnected)
+                    {
+                        string PortName = combo1.Text;// Get the Com Port Name 
+                        sm.setSerialPort("COM6", 115200, "None", 8, 2);// Connec to Serial Port 
+                        if (sm.Serialstatus())
+                        {
+                            Enablethread();
+                            ConnectionText.Text = "CONNECTED";
+                            ConnectionText.Foreground = Brushes.LightGreen;
+                            isconnected = true;
+                        }
+                        else
+                        {
+                            ConnectionText.Text = "DISCONNECTED";
+                            ConnectionText.Foreground = Brushes.OrangeRed;
+                            isconnected = false;
+                        }
+                    }
+                    else if (isconnected == true)
+                    {
+                        sm.closeSerialPort();
+                        serialCts?.Cancel();
+                        isconnected = false;
+                        serialCts?.Dispose();
+                        ConnectionText.Text = "DISCONNECTED";
+                        ConnectionText.Foreground = Brushes.OrangeRed;
+                    }
+                }
+                catch
+                {
 
+                }
+                finally
+                {
+                    ConnectButton.Content = isconnected ? "DISCONNECT" : "CONNECT";
+                }
+            }
+            catch { }
+        }
+
+        private void dropdownevent(object sender, EventArgs e)
+        {
+            try
+            {
+                string[] ports = System.IO.Ports.SerialPort.GetPortNames();
+                combo1.Items.Clear();
+
+                foreach (string port in ports)
+                {
+                    combo1.Items.Add(port);
+                }
+            }
+            catch { }
+        }
     }
 
     public class VehicleMessage

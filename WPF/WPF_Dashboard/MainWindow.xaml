@@ -54,13 +54,160 @@
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center">
+
+                <ComboBox x:Name="combo1"
+          Width="150"
+          Height="34"
+          IsEditable="False"
+          SelectedIndex="-1"
+          DropDownOpened="dropdownevent"
+          Background="#000000"
+          Foreground="#00D9FF"
+          BorderBrush="#24435D"
+          BorderThickness="1"
+          FontSize="12"
+          Padding="8,5"
+          Margin="0,0,10,0">
+
+                    <ComboBox.Resources>
+                        <Style TargetType="{x:Type ComboBoxItem}">
+                            <Setter Property="Foreground" Value="#00D9FF"/>
+                            <Setter Property="Background" Value="#000000"/>
+                            <Setter Property="Padding" Value="8,5"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsHighlighted" Value="True">
+                                    <Setter Property="Background" Value="#173B52"/>
+                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="#173B52"/>
+                                    <Setter Property="Foreground" Value="#00D9FF"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ComboBox.Resources>
+
+                    <ComboBox.Template>
+                        <ControlTemplate TargetType="{x:Type ComboBox}">
+                            <Grid>
+                                <ToggleButton x:Name="DropDownButton"
+                              Focusable="False"
+                              ClickMode="Press"
+                              IsChecked="{Binding IsDropDownOpen,
+                                  RelativeSource={RelativeSource TemplatedParent},
+                                  Mode=TwoWay}">
+                                    <ToggleButton.Template>
+                                        <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                            <Border Background="#000000"
+                                    BorderBrush="#24435D"
+                                    BorderThickness="1"
+                                    CornerRadius="3">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition Width="25"/>
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <ContentPresenter
+                                        Grid.Column="0"
+                                        Margin="8,0,0,0"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Left"
+                                        Content="{Binding SelectionBoxItem,
+                                            RelativeSource={RelativeSource AncestorType=ComboBox}}"
+                                        TextElement.Foreground="#00D9FF"/>
+
+                                                    <TextBlock Grid.Column="1"
+                                               Text="▾"
+                                               Foreground="#00D9FF"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+                                                </Grid>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </ToggleButton.Template>
+                                </ToggleButton>
+
+                                <Popup x:Name="PART_Popup"
+                       Placement="Bottom"
+                       IsOpen="{TemplateBinding IsDropDownOpen}"
+                       AllowsTransparency="True"
+                       Focusable="False"
+                       PopupAnimation="Fade">
+                                    <Border Background="#000000"
+                            BorderBrush="#24435D"
+                            BorderThickness="1"
+                            Width="{Binding ActualWidth,
+                                RelativeSource={RelativeSource AncestorType=ComboBox}}">
+                                        <ScrollViewer MaxHeight="250">
+                                            <ItemsPresenter/>
+                                        </ScrollViewer>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </ControlTemplate>
+                    </ComboBox.Template>
+                </ComboBox>
+
+                <Button x:Name="ConnectButton"
+            Content="CONNECT"
+            Width="100"
+            Height="34"
+            Click="ConnectButton_Click"
+            Background="#103047"
+            Foreground="#00D9FF"
+            BorderBrush="#00D9FF"
+            BorderThickness="1"
+            FontSize="11"
+            FontWeight="Bold"
+            Cursor="Hand"
+            Margin="0,0,20,0">
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="ButtonBorder"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5">
+                                <ContentPresenter
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"/>
+                            </Border>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="ButtonBorder"
+                                Property="Background"
+                                Value="#16435A"/>
+                                    <Setter TargetName="ButtonBorder"
+                                Property="BorderBrush"
+                                Value="#65E8FF"/>
+                                </Trigger>
+
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="ButtonBorder"
+                                Property="Background"
+                                Value="#006B82"/>
+                                </Trigger>
+
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter TargetName="ButtonBorder"
+                                Property="Opacity"
+                                Value="0.4"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
                 <TextBlock Text="Status"
                            Foreground="#8197B1"
                            FontSize="11"
                            Margin="0,0,18,0"/>
                 <TextBlock x:Name="ConnectionText"
-                           Text="CONNECTED"
-                           Foreground="#4DE0A5"
+                           Text="DISCONNECTED"
+                           Foreground="#FF5367"
                            FontSize="11"
                            FontWeight="Bold"/>
             </StackPanel>
