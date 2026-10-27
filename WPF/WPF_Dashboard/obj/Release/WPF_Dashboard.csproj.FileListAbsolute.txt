@@ -1,6 +1,6 @@
-D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\bin\Release\WPF_Dashboard.exe.config
-D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\bin\Release\WPF_Dashboard.exe
-D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\bin\Release\WPF_Dashboard.pdb
+D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\bin\Release\DSRC Inspired V2V Communication System.exe.config
+D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\bin\Release\DSRC Inspired V2V Communication System.exe
+D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\bin\Release\DSRC Inspired V2V Communication System.pdb
 D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\bin\Release\Microsoft.Bcl.AsyncInterfaces.dll
 D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\bin\Release\System.Buffers.dll
 D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\bin\Release\System.IO.Pipelines.dll
@@ -22,11 +22,11 @@ D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\bin\Release\System.Thread
 D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Release\MainWindow.baml
 D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Release\MainWindow.g.cs
 D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Release\App.g.cs
-D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Release\WPF_Dashboard_MarkupCompile.cache
-D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Release\WPF_Dashboard.g.resources
+D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Release\DSRC Inspired V2V Communication System_MarkupCompile.cache
+D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Release\DSRC Inspired V2V Communication System.g.resources
 D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Release\WPF_Dashboard.Properties.Resources.resources
 D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Release\WPF_Dashboard.csproj.GenerateResource.cache
 D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Release\WPF_Dashboard.csproj.CoreCompileInputs.cache
 D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Release\WPF_Dashboard.csproj.CopyComplete
-D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Release\WPF_Dashboard.exe
-D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Release\WPF_Dashboard.pdb
+D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Release\DSRC Inspired V2V Communication System.exe
+D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Release\DSRC Inspired V2V Communication System.pdb
