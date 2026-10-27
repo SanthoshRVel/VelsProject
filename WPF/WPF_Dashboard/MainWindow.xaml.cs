@@ -559,7 +559,7 @@ namespace WPF_Dashboard
                     if (combo1.SelectedIndex != -1 && !isconnected)
                     {
                         string PortName = combo1.Text;// Get the Com Port Name 
-                        sm.setSerialPort("COM6", 115200, "None", 8, 2);// Connec to Serial Port 
+                        sm.setSerialPort(PortName, 115200, "None", 8, 2);// Connec to Serial Port 
                         if (sm.Serialstatus())
                         {
                             Enablethread();

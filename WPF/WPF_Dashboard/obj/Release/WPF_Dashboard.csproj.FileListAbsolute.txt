@@ -19,7 +19,6 @@ D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\bin\Release\System.Runtim
 D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\bin\Release\System.Text.Encodings.Web.xml
 D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\bin\Release\System.Text.Json.xml
 D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\bin\Release\System.Threading.Tasks.Extensions.xml
-D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Release\WPF_Dashboard.csproj.AssemblyReference.cache
 D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Release\MainWindow.baml
 D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Release\MainWindow.g.cs
 D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Release\App.g.cs

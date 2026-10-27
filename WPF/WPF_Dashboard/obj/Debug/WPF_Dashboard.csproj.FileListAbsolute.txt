@@ -63,3 +63,4 @@ D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Debug\WPF_Dashboard.c
 D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Debug\WPF_Dashboard.csproj.CopyComplete
 D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Debug\WPF_Dashboard.exe
 D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Debug\WPF_Dashboard.pdb
+D:\Project\WPF_Dashboard\VelsProject\WPF\WPF_Dashboard\obj\Debug\WPF_Dashboard.csproj.AssemblyReference.cache

@@ -257,7 +257,7 @@
                         <StackPanel Orientation="Horizontal"
                                     Margin="0,2,0,0">
                             <TextBlock x:Name="LocalSpeedText"
-                                       Text="45.5"
+                                       Text="0"
                                        FontSize="64"
                                        FontWeight="Light"
                                        Foreground="#EAF8FF"/>
@@ -276,7 +276,7 @@
                                    Style="{StaticResource SmallLabel}"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Name="LocalDistanceText"
-                                       Text="12.3 m"
+                                       Text="0 m"
                                        FontSize="29"
                                        FontWeight="Medium"/>
                         </StackPanel>
@@ -285,7 +285,7 @@
                                    Style="{StaticResource SmallLabel}"
                                    Margin="0,20,0,0"/>
                         <TextBlock x:Name="LocalTtcText"
-                                   Text="1.25 s"
+                                   Text="0 s"
                                    FontSize="42"
                                    FontWeight="SemiBold"
                                    Foreground="#FF4F62"
@@ -295,7 +295,7 @@
                                    Style="{StaticResource SmallLabel}"
                                    Margin="0,18,0,0"/>
                         <TextBlock x:Name="SteerText"
-                                   Text="1"
+                                   Text="Idel"
                                    FontSize="22"
                                    FontWeight="SemiBold"
                                    Foreground="#FFB547"
@@ -428,7 +428,7 @@
                                    FontSize="11"
                                    HorizontalAlignment="Center"/>
                         <TextBlock x:Name="PeerDistanceText"
-                                   Text="15.5 m"
+                                   Text="0 m"
                                    FontSize="24"
                                    FontWeight="SemiBold"
                                    HorizontalAlignment="Center"
@@ -459,7 +459,7 @@
                                    Style="{StaticResource SmallLabel}"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Name="PeerSpeedText"
-                                       Text="40"
+                                       Text="0"
                                        FontSize="54"
                                        FontWeight="Light"/>
                             <TextBlock Text=" km/h"
@@ -476,7 +476,7 @@
                         <TextBlock Text="PEER TTC"
                                    Style="{StaticResource SmallLabel}"/>
                         <TextBlock x:Name="PeerTtcText"
-                                   Text="2.40 s"
+                                   Text="0 s"
                                    FontSize="36"
                                    FontWeight="SemiBold"
                                    Foreground="#FFB547"
@@ -486,7 +486,7 @@
                                    Style="{StaticResource SmallLabel}"
                                    Margin="0,22,0,0"/>
                         <TextBlock x:Name="SpeedDifferenceText"
-                                   Text="+5.5 km/h"
+                                   Text="+0 km/h"
                                    FontSize="22"
                                    FontWeight="SemiBold"
                                    Foreground="#00D9FF"
@@ -647,11 +647,11 @@
                        Rohitkumar RG    - 23626619 &#x0a;
                        Santhosh Rajavel - 23626622
 "
-                       Foreground="#607A97"
+                       Foreground="WhiteSmoke"
                        FontSize="10"
                        VerticalAlignment="Center"/>
             <TextBlock Text="VELS University"
-                       Foreground="#607A97"
+                       Foreground="WhiteSmoke"
                        FontSize="10"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"/>
