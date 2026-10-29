@@ -546,7 +546,7 @@ namespace WPF_Dashboard
                 if (data != null)
                     UpdateFromJson(data);
             }
-            catch
+            catch (Exception ex)
             { }
         }
 
@@ -616,60 +616,61 @@ namespace WPF_Dashboard
         }
     }
 
+
     public class VehicleMessage
     {
         [JsonPropertyName("vehicle")]
-        public string Vehicle { get; set; }
+        public string Vehicle { get; set; } = "A";
 
         [JsonPropertyName("role")]
-        public string Role { get; set; }
+        public string Role { get; set; } = "local";
 
-        [JsonPropertyName("local")]
-        public LocalVehicle Local { get; set; }
+        [JsonPropertyName("localjson")]
+        public LocalVehicle Local { get; set; } = new LocalVehicle();
 
-        [JsonPropertyName("peer")]
-        public PeerVehicle Peer { get; set; }
+        [JsonPropertyName("peerjson")]
+        public PeerVehicle Peer { get; set; } = new PeerVehicle();
 
         [JsonPropertyName("status")]
-        public string Status { get; set; }
+        public string Status { get; set; } = "IDLE";
     }
 
     public class LocalVehicle
     {
         [JsonPropertyName("speed_kmh")]
-        public double SpeedKmh { get; set; }
+        public double SpeedKmh { get; set; } = 0.0;
 
         [JsonPropertyName("distance_m")]
-        public double DistanceM { get; set; }
+        public double DistanceM { get; set; } = 0.0;
 
         [JsonPropertyName("brake_active")]
-        public bool BrakeActive { get; set; }
+        public bool BrakeActive { get; set; } = false;
 
         [JsonPropertyName("obstacle_detected")]
-        public bool ObstacleDetected { get; set; }
+        public bool ObstacleDetected { get; set; } = false;
 
         [JsonPropertyName("ttc_s")]
-        public double TtcS { get; set; }
+        public double TtcS { get; set; } = 0.0;
 
         [JsonPropertyName("steer_advisory")]
-        public int SteerAdvisory { get; set; }
+        public int SteerAdvisory { get; set; } = 0;
     }
 
     public class PeerVehicle
     {
         [JsonPropertyName("speed_kmh")]
-        public double SpeedKmh { get; set; }
+        public double SpeedKmh { get; set; } = 0.0;
 
         [JsonPropertyName("distance_m")]
-        public double DistanceM { get; set; }
+        public double DistanceM { get; set; } = 0.0;
 
         [JsonPropertyName("brake_active")]
-        public bool BrakeActive { get; set; }
+        public bool BrakeActive { get; set; } = false;
 
         [JsonPropertyName("obstacle_detected")]
-        public bool ObstacleDetected { get; set; }
+        public bool ObstacleDetected { get; set; } = false;
 
         [JsonPropertyName("ttc_s")]
-        public double TtcS { get; set; }
+        public double TtcS { get; set; } = 0.0;
     }
 }

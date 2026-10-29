@@ -293,7 +293,13 @@ void printJsonDashboard(float ttc, bool localDanger,
     peerData["obstacle_detected"] = peer.obstacleDetected;
     peerData["ttc_s"] = peer.ttc_s;
   } else {
-    doc["peer"] = nullptr;
+    // doc["peer"] = nullptr;
+    JsonObject peerData = doc.createNestedObject("peerjson");
+    peerData["speed_kmh"] = 0.0;
+    peerData["distance_m"] = 0.0;
+    peerData["brake_active"] = false;
+    peerData["obstacle_detected"] = false;
+    peerData["ttc_s"] = 0.0;
   }
 
   if (localDanger) {
