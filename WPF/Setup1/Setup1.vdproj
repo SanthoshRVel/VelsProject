@@ -801,7 +801,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:DSRC Inspired V2V Communication System"
         "ProductCode" = "8:{C11D732A-7B04-4B2D-B4E1-B955EF4F1205}"
-        "PackageCode" = "8:{F654FD40-57FD-4B02-BAA4-5DD0A2270D5A}"
+        "PackageCode" = "8:{1D5923A4-8742-4FD9-B5CE-13E0CC0B8FD5}"
         "UpgradeCode" = "8:{14E55D3C-8BDB-4088-AAA2-5DA6DF6A2A81}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
